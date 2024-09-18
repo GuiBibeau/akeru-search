@@ -3,43 +3,51 @@ import { ImageResponse } from "@vercel/og";
 export const runtime = "edge";
 
 export async function GET() {
-  const exo2 = await fetch(
-    new URL(
-      "https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700&display=swap",
-      import.meta.url
-    )
-  ).then((res) => res.arrayBuffer());
-
-  return new ImageResponse(
-    (
-      <div
-        style={{
-          fontSize: 128,
-          background: "linear-gradient(to bottom, #4F46E5, #7C3AED)",
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          color: "white",
-          fontFamily: '"Exo 2"',
-        }}
-      >
-        <div style={{ fontSize: 128, fontWeight: "bold" }}>Akeru Search</div>
-        <div style={{ fontSize: 48, marginTop: 40 }}>Discover the unknown</div>
-      </div>
-    ),
-    {
-      width: 1200,
-      height: 630,
-      fonts: [
-        {
-          name: "Exo 2",
-          data: exo2,
-          style: "normal",
-        },
-      ],
-    }
-  );
+  try {
+    return new ImageResponse(
+      (
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundImage: "url(https://www.akeru.ai/background-hero.jpg)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          <div
+            style={{
+              fontSize: 72,
+              fontWeight: "bold",
+              color: "white",
+              textShadow: "2px 2px 4px rgba(0,0,0,0.5)",
+            }}
+          >
+            Akeru Search
+          </div>
+          <div
+            style={{
+              fontSize: 36,
+              marginTop: 20,
+              color: "white",
+              textShadow: "2px 2px 4px rgba(0,0,0,0.5)",
+            }}
+          >
+            Living Knowledge
+          </div>
+        </div>
+      ),
+      {
+        width: 800,
+        height: 400,
+      }
+    );
+  } catch (error) {
+    console.error("Error generating OG image:", error);
+    return new Response("Error generating image", { status: 500 });
+  }
 }

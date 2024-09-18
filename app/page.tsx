@@ -15,14 +15,18 @@ export const metadata: Metadata = {
         url: "https://www.akeru.ai/api/og",
         width: 1200,
         height: 630,
+        alt: "Akeru Search OG Image",
       },
     ],
+    type: "website",
+    url: "https://www.akeru.ai",
   },
   twitter: {
     card: "summary_large_image",
     title: "Akeru Search",
     description: "Living Knowledge: AI-powered search to discover the unknown",
     images: ["https://www.akeru.ai/api/og"],
+    creator: "@AkeruAI",
   },
 };
 
