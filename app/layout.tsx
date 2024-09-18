@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
+import { Exo_2 } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+
+const exo2 = Exo_2({
+  subsets: ["latin"],
+  variable: "--font-exo2",
+});
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -27,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white`}
+        className={`${exo2.variable} ${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-black text-white`}
       >
         {children}
       </body>
