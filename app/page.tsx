@@ -6,13 +6,13 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Akeru Search",
-  description: "Discover the unknown with Akeru Search",
+  description: "Living Knowledge: AI-powered search to discover the unknown",
   openGraph: {
     title: "Akeru Search",
-    description: "Discover the unknown with Akeru Search",
+    description: "Living Knowledge: AI-powered search to discover the unknown",
     images: [
       {
-        url: "https://yourdomain.com/api/og",
+        url: "https://www.akeru.ai/api/og",
         width: 1200,
         height: 630,
       },
@@ -21,8 +21,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Akeru Search",
-    description: "Discover the unknown with Akeru Search",
-    images: ["https://yourdomain.com/api/og"],
+    description: "Living Knowledge: AI-powered search to discover the unknown",
+    images: ["https://www.akeru.ai/api/og"],
   },
 };
 
