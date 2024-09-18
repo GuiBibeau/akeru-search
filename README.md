@@ -2,6 +2,10 @@
 
 Akeru Search is a next-generation search engine powered by decentralized AI protocols and living knowledge.
 
+<p align="center">
+  <img src="/public/logo.jpeg" alt="Akeru Search Logo" width="200" height="200">
+</p>
+
 ## Features and Tech Stack
 
 - **Next.js 14**: Utilizing the latest features of Next.js for optimal performance and developer experience.
