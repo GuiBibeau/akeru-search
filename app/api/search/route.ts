@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
 
   const encodedQuery = encodeURIComponent(query);
   const response = await fetch(
-    `https://agents-api-312977769596.northamerica-northeast2.run.app/search?q=${encodedQuery}&stream=true`,
+    `http://localhost:8080/search?q=${encodedQuery}&stream=true`,
     {
       headers: {
         Authorization: `Bearer ${process.env.AGENTS_API_KEY}`,
