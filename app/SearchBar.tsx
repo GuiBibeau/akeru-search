@@ -3,11 +3,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { track } from "@vercel/analytics";
 
 async function searchAction(formData: FormData) {
   "use server";
   const query = formData.get("query")?.toString();
   if (query?.trim()) {
+    track("search", { query });
     redirect(`/search?q=${encodeURIComponent(query)}`);
   }
 }
