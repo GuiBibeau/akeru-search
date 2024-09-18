@@ -1,6 +1,5 @@
 "use client";
 
-import { SearchResult } from "@/app/page";
 import React, {
   createContext,
   useState,
@@ -10,6 +9,16 @@ import React, {
 } from "react";
 import { useRouter } from "next/navigation";
 
+export interface SearchResult {
+  url: string;
+  title: string;
+  source: string;
+  date: string;
+  summary: string;
+  keyPoints: string[];
+  icon: string;
+  thumbnailSrc?: string;
+}
 interface SearchContextType {
   query: string;
   setQuery: (query: string) => void;
