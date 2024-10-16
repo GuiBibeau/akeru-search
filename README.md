@@ -8,7 +8,7 @@ Akeru Search is a next-generation search engine powered by decentralized AI prot
 
 ## Features and Tech Stack
 
-- **Next.js 14**: Utilizing the latest features of Next.js for optimal performance and developer experience.
+- **Next.js 15**: Utilizing the latest features of Next.js for optimal performance and developer experience.
 - **React**: Building interactive UI components with React.
 - **TypeScript**: Ensuring type safety and improved developer productivity.
 - **Tailwind CSS**: Rapidly styling the application with utility-first CSS.
@@ -16,23 +16,23 @@ Akeru Search is a next-generation search engine powered by decentralized AI prot
 - **Radix UI**: Leveraging accessible and customizable UI components.
 - **Vercel OG**: Generating dynamic Open Graph images for better social media sharing.
 
-## Powered by GaiaNet Node and Brave Search
+## Powered by Brave Search
 
-Akeru Search is built on a custom API powered by a [GaiaNet](https://www.gaianet.ai/) node and utilizes Brave Search. This integration allows for:
+Akeru Search is built on a custom API and utilizes Brave Search. This integration allows for:
 
 - Decentralized AI-driven search results
 - Real-time data processing and retrieval
 - Enhanced privacy and data ownership for users
-- Comprehensive search results combining Brave Search with GaiaNet's summarization capabilities
+- Comprehensive search results combining Brave Search with summarization capabilities
 
 ## Future Goals
 
 Our vision for Akeru Search extends beyond its current capabilities:
 
-1. **Open Source Agents Protocol**: We aim to develop an open-source protocol that acts as a Layer 2 solution for decentralized AI protocols, inspired by [GaiaNet's](https://www.gaianet.ai/) approach to living knowledge systems.
-2. **Expanded AI Capabilities**: Integrating more advanced AI models and techniques to improve search accuracy and relevance, leveraging GaiaNet's continuous adaptation and growth principles.
-3. **Decentralized Infrastructure**: Further decentralizing our infrastructure to enhance reliability and reduce single points of failure, aligning with GaiaNet's decentralized platform model.
-4. **Community-Driven Development**: Encouraging community contributions to shape the future of decentralized search technology, similar to GaiaNet's collaborative environment for sharing knowledge and innovation.
+1. **Open Source Agents Protocol**: We aim to develop an open-source protocol that acts as a Layer 2 solution for decentralized AI protocols, inspired by approaches to living knowledge systems.
+2. **Expanded AI Capabilities**: Integrating more advanced AI models and techniques to improve search accuracy and relevance, leveraging continuous adaptation and growth principles.
+3. **Decentralized Infrastructure**: Further decentralizing our infrastructure to enhance reliability and reduce single points of failure, aligning with decentralized platform models.
+4. **Community-Driven Development**: Encouraging community contributions to shape the future of decentralized search technology, similar to collaborative environments for sharing knowledge and innovation.
 
 ## Contribution Guidelines
 
