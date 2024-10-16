@@ -21,16 +21,16 @@ export async function GET(request: NextRequest) {
         Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "llama-3.2-3b-preview",
+        model: "llama-3.1-8b-instant",
         messages: [
           {
             role: "system",
             content:
-              "You are a search suggestion generator. Provide 5 relevant suggestions as a comma-separated list, without any additional text, formatting, or explanation.",
+              "You are a search autocomplete generator. Provide 5 relevant autocomplete suggestions that complete or extend the given query. Return the suggestions as a comma-separated list, without any additional text, formatting, or explanation. Each suggestion should start with the original query.",
           },
           {
             role: "user",
-            content: `Generate 5 search suggestions for: "${query}"`,
+            content: `Generate 5 search autocomplete suggestions for: "${query}"`,
           },
         ],
         temperature: 0.5,
@@ -47,9 +47,15 @@ export async function GET(request: NextRequest) {
 
     const data = await response.json();
     const suggestions = data.choices[0].message.content
-      .split(",")
+      .split(/,|\n/) // Split by comma or newline
       .map((suggestion: string) => suggestion.trim())
       .filter(Boolean)
+      .map((suggestion: string) => {
+        // Ensure each suggestion starts with the original query
+        return suggestion.startsWith(query)
+          ? suggestion
+          : `${query} ${suggestion}`;
+      })
       .slice(0, 5);
 
     return NextResponse.json(suggestions);

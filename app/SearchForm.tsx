@@ -1,7 +1,8 @@
 "use client";
 
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+import { getSuggestions } from "@/actions/getAutocompleteSuggestions";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { useState, useEffect, useRef, KeyboardEvent } from "react";
 
@@ -16,11 +17,7 @@ export const SearchForm: React.FC<{
 
   const fetchSuggestions = async (input: string) => {
     try {
-      const response = await fetch(
-        `/api/suggest?q=${encodeURIComponent(input)}`
-      );
-      if (!response.ok) throw new Error("Failed to fetch suggestions");
-      const data = await response.json();
+      const data = await getSuggestions(input);
       setSuggestions(data);
     } catch (error) {
       console.error("Error fetching suggestions:", error);
@@ -29,15 +26,20 @@ export const SearchForm: React.FC<{
   };
 
   useEffect(() => {
-    if (query.length > 0) {
-      fetchSuggestions(query);
-    } else {
-      setSuggestions([]);
-    }
+    const delayDebounceFn = setTimeout(() => {
+      if (query.trim().length > 0) {
+        fetchSuggestions(query.trim());
+      } else {
+        setSuggestions([]);
+      }
+    }, 100);
+
+    return () => clearTimeout(delayDebounceFn);
   }, [query]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
+    const newQuery = e.target.value;
+    setQuery(newQuery);
     setSelectedIndex(-1);
   };
 

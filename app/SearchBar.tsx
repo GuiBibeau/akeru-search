@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { track } from "@vercel/analytics/server";
-import { SearchForm } from "@/components/SearchForm";
+import { SearchForm } from "./SearchForm";
 
 async function searchAction(formData: FormData) {
   "use server";
