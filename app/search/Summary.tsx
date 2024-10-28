@@ -52,7 +52,7 @@ export const Summary: React.FC<Props> = ({ sources, query }) => {
 
   return (
     <div className="mt-8  bg-black-800">
-      <div className="text-gray-200 whitespace-pre-wrap">{summary}</div>
+      <div className="text-gray-200 ">{summary}</div>
     </div>
   );
 };

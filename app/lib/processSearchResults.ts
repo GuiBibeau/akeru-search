@@ -120,6 +120,7 @@ export const processSearchResults = (
     })
     .sort((a, b) => b.sortDate.getTime() - a.sortDate.getTime());
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   return mappedResults.slice(0, maxResults).map(({ sortDate, ...rest }) => ({
     ...rest,
     image: rest.thumbnailSrc || "",

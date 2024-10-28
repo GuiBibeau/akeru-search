@@ -4,7 +4,9 @@ import { SummaryTool } from "../lib/SummaryTool";
 import { llama3point1Groq } from "@/chat-models/llama-3-point-1";
 import { Summary } from "./Summary";
 
-export default async function Home(props: { searchParams: { q?: string } }) {
+export default async function Home(props: {
+  searchParams: Promise<{ q?: string }>;
+}) {
   const searchParams = await props.searchParams;
   const initialQuery = searchParams.q || "";
 
