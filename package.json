@@ -9,8 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroicons/react": "^2.1.5",
     "@langchain/core": "^0.3.11",
     "@langchain/groq": "^0.1.2",
+    "@mediapipe/tasks-genai": "^0.10.17",
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-hover-card": "^1.1.1",
     "@radix-ui/react-icons": "^1.3.0",
@@ -23,10 +25,10 @@
     "cmdk": "^1.0.0",
     "framer-motion": "^11.5.4",
     "lucide-react": "^0.441.0",
-    "next": "14.2.11",
+    "next": "^15.0.1",
     "qss": "^3.0.0",
     "react": "^18.3.1",
-    "react-dom": "^18",
+    "react-dom": "^18.3.1",
     "simplex-noise": "^4.0.3",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",

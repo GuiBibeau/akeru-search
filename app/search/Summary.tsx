@@ -1,45 +1,58 @@
 "use client";
 
-import { useContext } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { SearchContext } from "./searchProvider";
+import { ProcessedResult } from "../lib/processSearchResults";
+import { useEffect, useState } from "react";
 
-export function Summary() {
-  const searchContext = useContext(SearchContext);
-  if (!searchContext)
-    throw new Error("Summary must be used within a SearchProvider");
+type Props = {
+  sources: ProcessedResult[];
+  query: string;
+};
 
-  const { isLoadingSummary, displayedWords } = searchContext;
+export const Summary: React.FC<Props> = ({ sources, query }) => {
+  const [summary, setSummary] = useState<string>("");
 
-  // Hide the summary if not loading and no words to display
-  if (!isLoadingSummary && displayedWords.length === 0) {
-    return null;
-  }
+  useEffect(() => {
+    const fetchSummary = async () => {
+      try {
+        const response = await fetch("/api/summarize", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ query, sources }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const reader = response.body?.getReader();
+        if (!reader) {
+          throw new Error("Failed to get response body reader");
+        }
+
+        const decoder = new TextDecoder();
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          const chunk = decoder.decode(value, { stream: true });
+          setSummary((prev) => prev + chunk);
+        }
+      } catch (error) {
+        console.error("Error fetching summary:", error);
+      }
+    };
+
+    if (query && sources.length > 0) {
+      fetchSummary();
+    }
+  }, [query, sources]);
 
   return (
-    <div className="w-full mb-4 mt-4">
-      {isLoadingSummary ? (
-        <div className="flex justify-center items-center h-16">
-          <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-gray-300"></div>
-        </div>
-      ) : (
-        <p className="text-base text-gray-300">
-          <AnimatePresence mode="popLayout">
-            {displayedWords.map((word, index) => (
-              <motion.span
-                key={index}
-                initial={{ opacity: 0, y: 5 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.1 }}
-                className="inline-block mr-1"
-              >
-                {word}
-              </motion.span>
-            ))}
-          </AnimatePresence>
-        </p>
-      )}
+    <div className="mt-8  bg-black-800">
+      <div className="text-gray-200 whitespace-pre-wrap">{summary}</div>
     </div>
   );
-}
+};
