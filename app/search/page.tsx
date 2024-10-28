@@ -3,6 +3,8 @@ import { Sources } from "./Sources.server";
 import { SummaryTool } from "../lib/SummaryTool";
 import { llama3point1Groq } from "@/chat-models/llama-3-point-1";
 import { Summary } from "./Summary";
+import { Suspense } from "react";
+import { SourcesSkeleton } from "./SourcesSkeleton";
 
 export default async function Home(props: {
   searchParams: Promise<{ q?: string }>;
@@ -22,7 +24,9 @@ export default async function Home(props: {
             <h1 className="text-3xl font-bold text-gray-300">{initialQuery}</h1>
           </div>
           <div className="mt-6 w-full flex flex-col">
-            <Sources sources={sources.slice(0, 3)} />
+            <Suspense fallback={<SourcesSkeleton />}>
+              <Sources sources={sources.slice(0, 3)} />
+            </Suspense>
             <Summary sources={sources} query={initialQuery} />
           </div>
         </div>
