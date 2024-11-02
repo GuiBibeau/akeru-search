@@ -29,6 +29,7 @@ export type ProcessedResult = {
   keyPoints: string[];
   image: string;
   thumbnailSrc?: string;
+  icon: string;
 };
 
 // Define a type for configuration options

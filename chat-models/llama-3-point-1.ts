@@ -11,3 +11,13 @@ export const llama3point1Gaia = new OpenAI({
     baseURL: "https://llama3.gaianet.network/v1/chat",
   },
 });
+
+export const llama3point1GaiaJson = new OpenAI({
+  temperature: 0.9,
+  configuration: {
+    baseURL: "https://llama3.gaianet.network/v1/chat",
+  },
+  modelKwargs: {
+    response_format: { type: "json_object" },
+  },
+});

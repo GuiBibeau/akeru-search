@@ -2,9 +2,10 @@
 
 import { getSuggestions } from "@/actions/getAutocompleteSuggestions";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Search } from "lucide-react";
 import { useState, useEffect, useRef, KeyboardEvent } from "react";
+import { cn } from "@/lib/utils";
 
 export const SearchForm: React.FC<{
   searchAction: (formData: FormData) => void;
@@ -12,7 +13,7 @@ export const SearchForm: React.FC<{
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(-1);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
   const fetchSuggestions = async (input: string) => {
@@ -37,13 +38,19 @@ export const SearchForm: React.FC<{
     return () => clearTimeout(delayDebounceFn);
   }, [query]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newQuery = e.target.value;
     setQuery(newQuery);
     setSelectedIndex(-1);
+
+    // Adjust textarea height
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
   };
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "ArrowDown") {
       e.preventDefault();
       setSelectedIndex((prevIndex) =>
@@ -52,15 +59,14 @@ export const SearchForm: React.FC<{
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
       setSelectedIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : -1));
-    } else if (e.key === "Enter") {
+    } else if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
       if (selectedIndex !== -1) {
-        e.preventDefault();
         setQuery(suggestions[selectedIndex]);
         setSuggestions([]);
         setSelectedIndex(-1);
         performSearch(suggestions[selectedIndex]);
       } else {
-        // Allow form submission when Enter is pressed and no suggestion is selected
         formRef.current?.requestSubmit();
       }
     }
@@ -70,7 +76,7 @@ export const SearchForm: React.FC<{
     setQuery(suggestion);
     setSuggestions([]);
     setSelectedIndex(-1);
-    inputRef.current?.focus();
+    textareaRef.current?.focus();
     performSearch(suggestion);
   };
 
@@ -82,32 +88,38 @@ export const SearchForm: React.FC<{
 
   return (
     <form ref={formRef} action={searchAction} className="relative mb-4">
-      <Input
-        ref={inputRef}
+      <Textarea
+        ref={textareaRef}
         name="query"
-        type="text"
         value={query}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
         placeholder="Ask anything..."
-        autoComplete="off"
-        className="w-full py-2 pl-5 pr-14 text-xl rounded-lg shadow-lg bg-black text-white border border-white/50 focus:border-white placeholder-gray-400"
+        rows={2}
+        className="w-full min-h-[64px] max-h-[300px] py-3 pl-5 pr-14 text-base rounded-lg shadow-lg border border-gray-200 focus:border-gray-400 placeholder-gray-500 overflow-hidden resize-none"
       />
       <Button
         type="submit"
         size="icon"
-        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-transparent text-white font-semibold rounded-lg hover:bg-white/10 hover:text-white transition-all duration-300 ease-in-out"
+        variant="ghost"
+        disabled={!query.trim()}
+        className={cn(
+          "absolute right-2 top-1/2 transform -translate-y-1/2 transition-all duration-300 ease-in-out",
+          query.trim()
+            ? "bg-black text-white hover:text-white hover:bg-black/70"
+            : "bg-gray-100 text-gray-400"
+        )}
       >
-        <Search className="h-5 w-5 border-none" />
+        <Search className="h-5 w-5" />
         <span className="sr-only">Search</span>
       </Button>
       {suggestions.length > 0 && (
-        <ul className="absolute z-10 w-full bg-black border border-white/50 rounded-lg mt-1 shadow-lg">
+        <ul className="absolute z-10 w-full bg-white border border-gray-200 rounded-lg mt-1 shadow-lg">
           {suggestions.map((suggestion, index) => (
             <li
               key={index}
-              className={`px-4 py-2 cursor-pointer hover:bg-white/10 ${
-                index === selectedIndex ? "bg-white/20" : ""
+              className={`px-4 py-2 cursor-pointer hover:bg-gray-100 ${
+                index === selectedIndex ? "bg-gray-200" : ""
               }`}
               onClick={() => handleSuggestionClick(suggestion)}
             >

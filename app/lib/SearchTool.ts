@@ -1,5 +1,11 @@
 import { SearchResult } from "./processSearchResults";
 
+interface BraveSearchResponse {
+  web?: {
+    results: SearchResult[];
+  };
+}
+
 export class SearchTool {
   name: string;
   private apiKey: string;
@@ -29,8 +35,8 @@ export class SearchTool {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data = await response.json();
-      return (data.web?.results as SearchResult[]) || null;
+      const data = (await response.json()) as BraveSearchResponse;
+      return data.web?.results || null;
     } catch (error) {
       console.error("Error in search method:", error);
       return null;

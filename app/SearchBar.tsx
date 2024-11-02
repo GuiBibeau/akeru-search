@@ -15,7 +15,7 @@ async function searchAction(formData: FormData) {
 export function SearchBar() {
   return (
     <div className="fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl px-4">
-      <h1 className="text-4xl font-bold mb-8 text-white text-center">
+      <h1 className="text-4xl font-bold mb-8 text-center">
         Your journey starts with a question. What&apos;s yours?
       </h1>
       <SearchForm searchAction={searchAction} />
@@ -33,7 +33,7 @@ function SearchPill({ emoji, query }: { emoji: string; query: string }) {
   return (
     <Link
       href={`/search?q=${encodeURIComponent(query)}`}
-      className="bg-black text-white border border-white/50 hover:bg-white/10 hover:text-white transition-all duration-300 ease-in-out px-4 py-2 rounded-lg text-sm inline-flex items-center"
+      className="border hover:bg-gray-100 transition-all duration-300 ease-in-out px-4 py-2 rounded-lg text-sm inline-flex items-center"
     >
       {emoji} {query}
     </Link>

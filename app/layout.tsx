@@ -32,9 +32,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <body
-        className={`${exo2.variable} ${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-black text-white`}
+        className={`${exo2.variable} ${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-white text-black`}
       >
         {children}
         <Analytics />
