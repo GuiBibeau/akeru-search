@@ -18,7 +18,6 @@ interface ReasoningInterfaceProps {
   reasoningData: TaskPlan;
   currentStep: number;
   isProcessing: boolean;
-  onStart: () => void;
 }
 
 export default function ReasoningInterface({
@@ -61,7 +60,7 @@ export default function ReasoningInterface({
                 className="flex items-center gap-1"
               >
                 Thinking
-                <Loader2 className="w-3 h-3 animate-spin" />
+                <Loader2 className="w-3 h-3 animate-spin" aria-hidden="true" />
               </motion.div>
             ) : (
               <motion.div
@@ -75,18 +74,20 @@ export default function ReasoningInterface({
               </motion.div>
             )}
           </AnimatePresence>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setIsExpanded(!isExpanded)}
-            aria-label={isExpanded ? "Collapse steps" : "Expand steps"}
-          >
-            {isExpanded ? (
-              <ChevronUp className="w-4 h-4" />
-            ) : (
-              <ChevronDown className="w-4 h-4" />
-            )}
-          </Button>
+          <div className="flex gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setIsExpanded(!isExpanded)}
+              aria-label={isExpanded ? "Collapse steps" : "Expand steps"}
+            >
+              {isExpanded ? (
+                <ChevronUp className="w-4 h-4" />
+              ) : (
+                <ChevronDown className="w-4 h-4" />
+              )}
+            </Button>
+          </div>
         </CardTitle>
       </CardHeader>
       <AnimatePresence>

@@ -6,44 +6,16 @@ import React, {
   useState,
   useCallback,
   useEffect,
-  useRef,
 } from "react";
-import { ProcessedResult } from "../lib/processSearchResults";
-import { TaskPlan, TaskStep } from "../types";
-
-type ReasoningStatus = "idle" | "processing" | "completed" | "error";
-
-export type SearchArtifact = {
-  taskId: number;
-  taskType: "search";
-  artifact: ProcessedResult[];
-};
-
-type SummaryArtifact = {
-  taskId: number;
-  taskType: "summarize";
-  artifact: string;
-};
-
-type ReasoningChainArtifact = SummaryArtifact | SearchArtifact;
-
-type QueueItem = {
-  task: TaskStep;
-  status: "pending" | "processing" | "completed" | "error";
-  result?: ReasoningChainArtifact;
-  error?: string;
-};
-
-type ReasoningContextType = {
-  taskPlan: TaskPlan;
-  status: ReasoningStatus;
-  currentTask?: QueueItem;
-  artifacts: ReasoningChainArtifact[];
-  queueItems: QueueItem[];
-  pauseProcessing: () => void;
-  resumeProcessing: () => void;
-  isPaused: boolean;
-};
+import { TaskPlan } from "../types";
+import { executeSearch, executeSummarize } from "../lib/reasoning-api";
+import {
+  ReasoningContextType,
+  QueueItem,
+  ReasoningChainArtifact,
+  SearchArtifact,
+  ReasoningStatus,
+} from "../types/reasoning";
 
 const ReasoningContext = createContext<ReasoningContextType | undefined>(
   undefined
@@ -52,22 +24,17 @@ const ReasoningContext = createContext<ReasoningContextType | undefined>(
 type ReasoningProviderProps = {
   children: React.ReactNode;
   initialTaskPlan: TaskPlan;
-  processingInterval?: number;
 };
 
 export const ReasoningProvider: React.FC<ReasoningProviderProps> = ({
   children,
   initialTaskPlan,
-  processingInterval = 1000, // Default 1 second between tasks
 }) => {
   const [status, setStatus] = useState<ReasoningStatus>("idle");
-  const [isPaused, setIsPaused] = useState(false);
   const [queueItems, setQueueItems] = useState<QueueItem[]>([]);
   const [artifacts, setArtifacts] = useState<ReasoningChainArtifact[]>([]);
   const [currentTask, setCurrentTask] = useState<QueueItem>();
-  const processingTimeoutRef = useRef<NodeJS.Timeout>();
 
-  // Initialize queue with tasks from task plan
   useEffect(() => {
     const initialQueue: QueueItem[] = initialTaskPlan.steps.map((step) => ({
       task: step,
@@ -76,55 +43,6 @@ export const ReasoningProvider: React.FC<ReasoningProviderProps> = ({
     setQueueItems(initialQueue);
     setStatus("processing");
   }, [initialTaskPlan]);
-
-  const executeSearch = async (query: string): Promise<ProcessedResult[]> => {
-    const response = await fetch("/api/search", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query }),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error || "Failed to execute search");
-    }
-
-    const results = await response.json();
-    return results.slice(0, 4); // Limit to 4 sources
-  };
-
-  const executeSummarize = async (
-    query: string,
-    searchResults: ProcessedResult[],
-    onChunk: (chunk: string) => void
-  ): Promise<string> => {
-    const response = await fetch("/api/summarize", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query, sources: searchResults }),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error || "Failed to execute summarization");
-    }
-
-    const reader = response.body?.getReader();
-    if (!reader) throw new Error("Failed to get response body reader");
-
-    const decoder = new TextDecoder();
-    let summary = "";
-
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      const chunk = decoder.decode(value, { stream: true });
-      summary += chunk;
-      onChunk(chunk);
-    }
-
-    return summary;
-  };
 
   const processNextTask = useCallback(async () => {
     // Find next pending task that has all dependencies completed
@@ -181,30 +99,11 @@ export const ReasoningProvider: React.FC<ReasoningProviderProps> = ({
             .flatMap((a) => a.artifact)
             .slice(0, 4);
 
-          let streamingSummary = "";
           const summary = await executeSummarize(
             initialTaskPlan.query,
             limitedResults,
-            (chunk) => {
-              streamingSummary += chunk;
-              setArtifacts((prev) => {
-                const lastArtifact = prev[prev.length - 1];
-                if (lastArtifact?.taskType === "summarize") {
-                  return [
-                    ...prev.slice(0, -1),
-                    { ...lastArtifact, artifact: streamingSummary },
-                  ];
-                }
-                return [
-                  ...prev,
-                  {
-                    taskId: nextTask.task.id,
-                    taskType: "summarize",
-                    artifact: streamingSummary,
-                  },
-                ];
-              });
-            }
+            nextTask.task.id,
+            setArtifacts
           );
 
           result = {
@@ -214,6 +113,9 @@ export const ReasoningProvider: React.FC<ReasoningProviderProps> = ({
           };
           break;
         }
+        case "requestInfo":
+          setStatus("idle");
+          return;
         default:
           throw new Error(`Unknown task type: ${nextTask.task.action.type}`);
       }
@@ -239,32 +141,11 @@ export const ReasoningProvider: React.FC<ReasoningProviderProps> = ({
     }
   }, [queueItems, artifacts, initialTaskPlan.query]);
 
-  // Automatic processing loop
   useEffect(() => {
-    if (status === "processing" && !isPaused) {
-      processingTimeoutRef.current = setTimeout(
-        processNextTask,
-        processingInterval
-      );
+    if (status === "processing") {
+      processNextTask();
     }
-
-    return () => {
-      if (processingTimeoutRef.current) {
-        clearTimeout(processingTimeoutRef.current);
-      }
-    };
-  }, [status, isPaused, processNextTask, processingInterval]);
-
-  const pauseProcessing = useCallback(() => {
-    setIsPaused(true);
-    if (processingTimeoutRef.current) {
-      clearTimeout(processingTimeoutRef.current);
-    }
-  }, []);
-
-  const resumeProcessing = useCallback(() => {
-    setIsPaused(false);
-  }, []);
+  }, [status, processNextTask]);
 
   return (
     <ReasoningContext.Provider
@@ -274,9 +155,7 @@ export const ReasoningProvider: React.FC<ReasoningProviderProps> = ({
         currentTask,
         artifacts,
         queueItems,
-        pauseProcessing,
-        resumeProcessing,
-        isPaused,
+        submitRequestInfo: () => {},
       }}
     >
       {children}

@@ -1,6 +1,6 @@
+import { SearchArtifact } from "../types/reasoning";
 import { useReasoningContext } from "./reasoning-context";
 import { Sources } from "./sources";
-import { SearchArtifact } from "./reasoning-context";
 
 export const SourcesDisplay = () => {
   const { artifacts } = useReasoningContext();

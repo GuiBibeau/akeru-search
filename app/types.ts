@@ -1,8 +1,10 @@
 export interface TaskActionParams {
   query?: string;
+  prompt?: string;
+  requiredInfo?: string[];
 }
 
-export type TaskActionType = "search" | "summarize";
+export type TaskActionType = "search" | "summarize" | "requestInfo";
 
 export interface TaskAction {
   type: TaskActionType;

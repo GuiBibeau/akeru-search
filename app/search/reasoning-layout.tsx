@@ -5,6 +5,7 @@ import { ReasoningProvider } from "./reasoning-context";
 import ConnectedReasoningInterface from "./connected-reasoning-interface";
 import { StreamingSummary } from "./streaming-summary";
 import { TaskPlan } from "../types";
+import { SourcesDisplay } from "./sources-display";
 
 interface ReasoningLayoutProps {
   initialQuery: string;
@@ -24,6 +25,7 @@ export default function ReasoningLayout({
           <ReasoningProvider initialTaskPlan={initialTaskPlan}>
             <div className="space-y-6">
               <ConnectedReasoningInterface />
+              <SourcesDisplay />
               <StreamingSummary />
             </div>
           </ReasoningProvider>

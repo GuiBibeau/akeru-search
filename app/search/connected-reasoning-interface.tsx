@@ -1,19 +1,10 @@
 "use client";
 import { useReasoningContext } from "./reasoning-context";
 import ReasoningInterface from "./reasoning-interface";
-import { SourcesDisplay } from "./sources-display";
 
 const ConnectedReasoningInterface = () => {
-  const {
-    taskPlan,
-    status,
-    queueItems,
-    isPaused,
-    resumeProcessing,
-    pauseProcessing,
-  } = useReasoningContext();
+  const { taskPlan, status, queueItems } = useReasoningContext();
 
-  // Calculate current step based on completed and processing items
   const getCurrentStep = () => {
     const processingItem = queueItems.findIndex(
       (item) => item.status === "processing"
@@ -26,14 +17,6 @@ const ConnectedReasoningInterface = () => {
     return lastCompleted + 1;
   };
 
-  const handleStart = () => {
-    if (status === "idle" || isPaused) {
-      resumeProcessing();
-    } else {
-      pauseProcessing();
-    }
-  };
-
   const reasoningData = {
     query: taskPlan.query,
     steps: taskPlan.steps,
@@ -44,10 +27,8 @@ const ConnectedReasoningInterface = () => {
       <ReasoningInterface
         reasoningData={reasoningData}
         currentStep={getCurrentStep()}
-        isProcessing={status === "processing" && !isPaused}
-        onStart={handleStart}
+        isProcessing={status === "processing"}
       />
-      <SourcesDisplay />
     </div>
   );
 };

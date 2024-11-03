@@ -4,28 +4,31 @@ import { SearchBar } from "./SearchBar";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Akeru Search",
-  description: "Living Knowledge: AI-powered search to discover the unknown",
+  title: "Finder - Your Web3 Butler",
+  description:
+    "Your personal butler for navigating the web3 world with ease. Simply ask, and let Finder handle your web3 life and investments.",
   openGraph: {
-    title: "Akeru Search",
-    description: "Living Knowledge: AI-powered search to discover the unknown",
+    title: "Finder - Your Web3 Butler",
+    description:
+      "Your personal butler for navigating the web3 world with ease. Simply ask, and let Finder handle your web3 life and investments.",
     images: [
       {
-        url: "https://www.akeru.ai/api/og",
+        url: "https://www.finder.ai/api/og",
         width: 1200,
         height: 630,
-        alt: "Akeru Search OG Image",
+        alt: "Finder Web3 Butler OG Image",
       },
     ],
     type: "website",
-    url: "https://www.akeru.ai",
+    url: "https://www.finder.ai",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Akeru Search",
-    description: "Living Knowledge: AI-powered search to discover the unknown",
-    images: ["https://www.akeru.ai/api/og"],
-    creator: "@AkeruAI",
+    title: "Finder - Your Web3 Butler",
+    description:
+      "Your personal butler for navigating the web3 world with ease. Simply ask, and let Finder handle your web3 life and investments.",
+    images: ["https://www.finder.ai/api/og"],
+    creator: "@FinderAI",
   },
 };
 
