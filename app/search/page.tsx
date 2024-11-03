@@ -1,4 +1,5 @@
-import { TaskPlanner } from "../lib/TaskPlanner";
+import { NavBar } from "@/components/NavBar";
+import { TaskPlanner } from "../../lib/TaskPlanner";
 import ReasoningLayout from "./reasoning-layout";
 import { llama3point1Versatile } from "@/chat-models/llama-3-point-1-70b-versatile";
 
@@ -12,6 +13,14 @@ export default async function Home(props: {
   const taskPlan = await taskPlanner.planTask(initialQuery);
 
   return (
-    <ReasoningLayout initialQuery={initialQuery} initialTaskPlan={taskPlan} />
+    <div className="min-h-screen flex flex-col">
+      <NavBar />
+      <main className="flex-grow flex justify-center p-4">
+        <div className="w-full max-w-4xl space-y-6">
+          <h1 className="text-3xl font-bold">{initialQuery}</h1>
+          <ReasoningLayout initialTaskPlan={taskPlan} />
+        </div>
+      </main>
+    </div>
   );
 }

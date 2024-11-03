@@ -1,8 +1,8 @@
-import { SearchTool } from "@/app/lib/SearchTool";
+import { SearchTool } from "@/lib/SearchTool";
 import {
   ProcessedResult,
   processSearchResults,
-} from "@/app/lib/processSearchResults";
+} from "@/lib/processSearchResults";
 
 interface SearchRequestBody {
   query: string;

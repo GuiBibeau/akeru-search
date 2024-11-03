@@ -2,7 +2,7 @@ import { llama3point1Groq } from "@/chat-models/llama-3-point-1";
 import { gpt3point5 } from "@/chat-models/gpt-3.5";
 import { SummaryTool } from "./SummaryTool";
 import { z } from "zod";
-import { TaskPlan } from "../types";
+import { TaskPlan } from "../app/types";
 
 const TaskActionParamsSchema = z.object({
   query: z.string().optional(),
@@ -76,7 +76,8 @@ Rules:
 3. Use search and summarize to gather relevant information about protocols or current market conditions
 4. Use dependencies to ensure proper order of operations
 5. Consider rate limits between actions
-6. Maximum 3 steps allowed`,
+6. Maximum 3 steps allowed, prioritize few steps
+7. Only one requestInfo action is allowed per plan`,
       ],
       ["human", `Execute this crypto task: "${query}"`],
     ];
@@ -85,7 +86,6 @@ Rules:
   async planTask(query: string): Promise<TaskPlan> {
     try {
       const response = await this.model.invoke(this.createPrompt(query));
-      console.log(response);
       const parsedJson = JSON.parse(String(response.content));
       const validatedPlan: TaskPlan = TaskPlanSchema.parse(parsedJson);
       return validatedPlan;

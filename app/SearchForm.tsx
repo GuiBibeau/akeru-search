@@ -1,11 +1,11 @@
 "use client";
 
-import { getSuggestions } from "@/actions/getAutocompleteSuggestions";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Search } from "lucide-react";
 import { useState, useEffect, useRef, KeyboardEvent } from "react";
 import { cn } from "@/lib/utils";
+import { getSuggestions } from "./actions/getAutocompleteSuggestions";
 
 export const SearchForm: React.FC<{
   searchAction: (formData: FormData) => void;

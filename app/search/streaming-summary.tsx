@@ -1,6 +1,6 @@
 "use client";
 
-import { useReasoningContext } from "./reasoning-context";
+import { useReasoningContext } from "../../hooks/reasoning-context";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Loader2, FileText } from "lucide-react";

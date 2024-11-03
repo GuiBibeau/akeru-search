@@ -1,6 +1,6 @@
 import { llama3point1Groq } from "@/chat-models/llama-3-point-1";
-import { SearchArtifact } from "../search/reasoning-context";
 import { z } from "zod";
+import { SearchArtifact } from "../app/types/reasoning";
 
 const CryptoAssessmentSchema = z.object({
   isCryptoRelated: z.boolean(),

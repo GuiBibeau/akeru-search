@@ -1,5 +1,5 @@
-import { SummaryTool } from "@/app/lib/SummaryTool";
-import { ProcessedResult } from "@/app/lib/processSearchResults";
+import { SummaryTool } from "@/lib/SummaryTool";
+import { ProcessedResult } from "@/lib/processSearchResults";
 import { gaia3point1 } from "@/chat-models/gaia-llama3point1";
 
 export async function POST(request: Request) {

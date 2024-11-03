@@ -1,6 +1,6 @@
 "use client";
 
-import { useReasoningContext } from "./reasoning-context";
+import { useReasoningContext } from "../../hooks/reasoning-context";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { HelpCircle } from "lucide-react";
 

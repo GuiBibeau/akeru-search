@@ -1,5 +1,5 @@
 import { ProcessedResult } from "./processSearchResults";
-import { ReasoningChainArtifact } from "../types/reasoning";
+import { ReasoningChainArtifact } from "../app/types/reasoning";
 
 export async function executeSearch(query: string): Promise<ProcessedResult[]> {
   const response = await fetch("/api/search", {

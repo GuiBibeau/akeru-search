@@ -1,6 +1,6 @@
-import { llama3point1Groq } from "../../chat-models/llama-3-point-1";
+import { llama3point1Groq } from "../chat-models/llama-3-point-1";
 import { ProcessedResult, processSearchResults } from "./processSearchResults";
-import { gpt3point5 } from "../../chat-models/gpt-3.5";
+import { gpt3point5 } from "../chat-models/gpt-3.5";
 import { SearchTool } from "./SearchTool";
 
 export class SummaryTool {

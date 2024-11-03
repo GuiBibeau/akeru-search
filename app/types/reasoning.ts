@@ -1,4 +1,4 @@
-import { ProcessedResult } from "../lib/processSearchResults";
+import { ProcessedResult } from "../../lib/processSearchResults";
 import { TaskPlan, TaskStep } from "../types";
 
 export type ReasoningStatus = "idle" | "processing" | "completed" | "error";

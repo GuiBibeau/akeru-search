@@ -7,7 +7,7 @@ import React, {
   useCallback,
   useEffect,
 } from "react";
-import { TaskPlan } from "../types";
+import { TaskPlan } from "../app/types";
 import { executeSearch, executeSummarize } from "../lib/reasoning-api";
 import {
   ReasoningContextType,
@@ -15,7 +15,7 @@ import {
   ReasoningChainArtifact,
   SearchArtifact,
   ReasoningStatus,
-} from "../types/reasoning";
+} from "../app/types/reasoning";
 
 const ReasoningContext = createContext<ReasoningContextType | undefined>(
   undefined
@@ -95,9 +95,7 @@ export const ReasoningProvider: React.FC<ReasoningProviderProps> = ({
           const searchArtifacts = artifacts.filter(
             (a): a is SearchArtifact => a.taskType === "search"
           );
-          const limitedResults = searchArtifacts
-            .flatMap((a) => a.artifact)
-            .slice(0, 4);
+          const limitedResults = searchArtifacts.flatMap((a) => a.artifact);
 
           const summary = await executeSummarize(
             initialTaskPlan.query,
