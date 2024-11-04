@@ -1,6 +1,6 @@
 import { SummaryTool } from "@/lib/SummaryTool";
 import { ProcessedResult } from "@/lib/processSearchResults";
-import { llama3point1Groq } from "@/chat-models/llama-3-point-1";
+import { grok } from "@/chat-models/xai-grok";
 
 export async function POST(request: Request) {
   try {
@@ -17,7 +17,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const summaryTool = new SummaryTool(llama3point1Groq);
+    const summaryTool = new SummaryTool(grok);
     const stream = summaryTool.summarizeWithResultsStreamed(query, sources);
 
     const encoder = new TextEncoder();
