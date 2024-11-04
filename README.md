@@ -1,6 +1,6 @@
 # Welcome to Akeru Search! 👋
 
-I've built an open-source search engine that combines traditional search with AI-powered insights, similar to what you might have seen with Perplexity AI. I'm primarily using [Groq's](https://groq.com/) lightning-fast LLM infrastructure, though I've made it flexible enough to work with other AI providers too.
+I've built an open-source search engine that combines traditional search with AI-powered insights, similar to what you might have seen with Perplexity AI. I'm primarily using [xAI](https://x.ai/) since grok is censorhip resistant, though I've made it flexible enough to work with other AI providers too.
 
 ## What's Under the Hood? 🛠️
 
@@ -32,7 +32,7 @@ Honestly? Not much! I built this mostly for fun and to show off some UI tricks I
 
 I'd love to have you join in! Before you start coding though, you'll need some API keys. Just reach out to me (@guibibeau) and I'll help you get set up with:
 
-- Groq API key (or any other inference provider)
+- xAI API key (or any other inference provider)
 - Brave Search
 - Any other AI provider keys you want to play with
 
