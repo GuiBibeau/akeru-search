@@ -4,30 +4,30 @@ import { SearchBar } from "./SearchBar";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Finder - Your Web3 Butler",
+  title: "Finder - Decentralized AI Search",
   description:
-    "Your personal butler for navigating the web3 world with ease. Simply ask, and let Finder handle your web3 life and investments.",
+    "A decentralized AI-powered search engine for the web3 ecosystem.",
   openGraph: {
-    title: "Finder - Your Web3 Butler",
+    title: "Finder - Decentralized AI Search",
     description:
-      "Your personal butler for navigating the web3 world with ease. Simply ask, and let Finder handle your web3 life and investments.",
+      "A decentralized AI-powered search engine for the web3 ecosystem.",
     images: [
       {
-        url: "https://www.finder.ai/api/og",
+        url: "https://www.akeru.ai/api/og",
         width: 1200,
         height: 630,
-        alt: "Finder Web3 Butler OG Image",
+        alt: "Finder Decentralized Search",
       },
     ],
     type: "website",
-    url: "https://www.finder.ai",
+    url: "https://www.akeru.ai",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Finder - Your Web3 Butler",
+    title: "Finder - Decentralized AI Search",
     description:
-      "Your personal butler for navigating the web3 world with ease. Simply ask, and let Finder handle your web3 life and investments.",
-    images: ["https://www.finder.ai/api/og"],
+      "A decentralized AI-powered search engine for the web3 ecosystem.",
+    images: ["https://www.akeru.ai/api/og"],
     creator: "@FinderAI",
   },
 };
