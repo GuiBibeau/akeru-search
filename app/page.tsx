@@ -16,7 +16,7 @@ export const metadata: Metadata = {
         url: "https://www.akeru.ai/api/og",
         width: 1200,
         height: 630,
-        alt: "Finder Decentralized Search",
+        alt: "Open Source AI Search",
       },
     ],
     type: "website",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     description:
       "An open source AI-powered search engine for the web3 ecosystem.",
     images: ["https://www.akeru.ai/api/og"],
-    creator: "@FinderAI",
+    creator: "@guibibeau",
   },
 };
 
