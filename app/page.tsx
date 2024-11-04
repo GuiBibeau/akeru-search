@@ -4,13 +4,13 @@ import { SearchBar } from "./SearchBar";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Finder - Decentralized AI Search",
+  title: "Finder - Open Source AI Search",
   description:
-    "A decentralized AI-powered search engine for the web3 ecosystem.",
+    "An open source AI-powered search engine for the web3 ecosystem.",
   openGraph: {
-    title: "Finder - Decentralized AI Search",
+    title: "Finder - Open Source AI Search",
     description:
-      "A decentralized AI-powered search engine for the web3 ecosystem.",
+      "An open source AI-powered search engine for the web3 ecosystem.",
     images: [
       {
         url: "https://www.akeru.ai/api/og",
@@ -24,9 +24,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Finder - Decentralized AI Search",
+    title: "Finder - Open Source AI Search",
     description:
-      "A decentralized AI-powered search engine for the web3 ecosystem.",
+      "An open source AI-powered search engine for the web3 ecosystem.",
     images: ["https://www.akeru.ai/api/og"],
     creator: "@FinderAI",
   },
