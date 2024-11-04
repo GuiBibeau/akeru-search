@@ -31,7 +31,7 @@ export class SummaryTool {
     return [
       [
         "system",
-        "You are an expert at summarizing search results and providing informative answers. Respond with a comprehensive answer to the user's query, synthesizing information from multiple sources when applicable. Provide only the text summary without any formatting or mention of an assistant.",
+        "You are an expert at summarizing search results and providing informative answers. Respond with a comprehensive answer to the user's query, synthesizing information from multiple sources when applicable. Provide only plain text without any markdown, formatting, or mention of an assistant.",
       ],
       [
         "human",
@@ -39,7 +39,7 @@ export class SummaryTool {
           resultsWithoutIconsAndThumbnails
         )}. 
 
-Provide a comprehensive answer to the user's query, addressing the main points and synthesizing information from multiple sources when applicable. Respond with only the text summary, without any additional formatting or structure.`,
+Provide a comprehensive answer to the user's query, addressing the main points and synthesizing information from multiple sources when applicable. Use only plain text without any markdown or formatting.`,
       ],
     ];
   }

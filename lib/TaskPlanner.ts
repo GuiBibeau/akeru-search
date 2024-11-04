@@ -70,7 +70,8 @@ Guidelines:
 2. Break complex queries into clear research steps
 3. Use dependencies to build upon previous findings
 4. Ensure each step contributes to answering the research question
-5. Maximum 2 steps allowed, typically a search followed by a summary"`,
+5. Maximum 2 steps allowed in the plan: first a search step, followed by a summary step
+6. The last step MUST always be a summary step`,
       ],
       ["human", `Research this crypto topic: "${query}"`],
     ];
