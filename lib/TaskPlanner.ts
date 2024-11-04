@@ -5,13 +5,11 @@ import { z } from "zod";
 import { TaskPlan } from "../app/types";
 
 const TaskActionParamsSchema = z.object({
-  query: z.string().optional(),
-  prompt: z.string().optional(),
-  requiredInfo: z.array(z.string()).optional(),
+  query: z.string(),
 });
 
 const TaskActionSchema = z.object({
-  type: z.enum(["search", "summarize", "requestInfo"]),
+  type: z.enum(["search", "summarize"]),
   params: TaskActionParamsSchema,
 });
 
@@ -42,7 +40,7 @@ export class TaskPlanner {
     return [
       [
         "system",
-        `You are a crypto butler, an AI assistant specialized in helping users with cryptocurrency and web3 tasks. You can execute tasks through search, summarization, and requesting additional information from users.
+        `You are a crypto butler, an AI assistant specialized in helping users with cryptocurrency and web3 tasks. You can execute tasks through search and summarization.
 Answer nothing else but the JSON. Don't include any other text.
 
 Output must be valid JSON in the following format:
@@ -54,11 +52,9 @@ Output must be valid JSON in the following format:
       "description": "specific action being taken",
       "dependencies": [list of step IDs that must be completed before this step],
       "action": {
-        "type": "search|summarize|requestInfo",
+        "type": "search|summarize",
         "params": {
-          "query": "search query text",
-          "prompt": "question to ask the user",
-          "requiredInfo": ["list", "of", "required", "information"]
+          "query": "search query text"
         }
       }
     }
@@ -68,16 +64,13 @@ Output must be valid JSON in the following format:
 Available actions:
 1. search: Perform a web search with the given query
 2. summarize: Generate a summary of search results for the query
-3. requestInfo: Ask the user for specific information needed to complete the task
 
 Rules:
 1. Each step must be an actual executable action
-2. If the user's request requires specific details (like amount, address, token), use requestInfo first
-3. Use search and summarize to gather relevant information about protocols or current market conditions
-4. Use dependencies to ensure proper order of operations
-5. Consider rate limits between actions
-6. Maximum 3 steps allowed, prioritize few steps
-7. Only one requestInfo action is allowed per plan`,
+2. Use search and summarize to gather relevant information about protocols or market conditions
+3. Use dependencies to ensure proper order of operations
+4. Consider rate limits between actions
+5. Maximum 2 steps allowed, prioritize few steps"`,
       ],
       ["human", `Execute this crypto task: "${query}"`],
     ];
