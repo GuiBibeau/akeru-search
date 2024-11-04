@@ -21,7 +21,6 @@ export function SearchBar() {
       <SearchForm searchAction={searchAction} />
       <div className="flex justify-center space-x-2 mt-4 flex-wrap gap-2">
         <SearchPill emoji="🔍" query="How does open source search work?" />
-        <SearchPill emoji="🤖" query="What makes this AI different?" />
         <SearchPill emoji="🌐" query="Benefits of open source search" />
         <SearchPill emoji="🔐" query="Privacy in open source AI" />
       </div>
