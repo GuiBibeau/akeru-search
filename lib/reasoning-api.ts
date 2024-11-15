@@ -14,7 +14,7 @@ export async function executeSearch(query: string): Promise<ProcessedResult[]> {
   }
 
   const results = await response.json();
-  return results.slice(0, 4);
+  return results;
 }
 
 export async function executeSummarize(

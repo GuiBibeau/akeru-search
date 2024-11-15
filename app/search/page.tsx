@@ -1,7 +1,6 @@
 import { NavBar } from "@/components/NavBar";
 import { TaskPlanner } from "../../lib/TaskPlanner";
 import ReasoningLayout from "./reasoning-layout";
-import { llama3point1Groq } from "@/chat-models/llama-3-point-1";
 
 export default async function Home(props: {
   searchParams: Promise<{ q?: string }>;
@@ -9,8 +8,8 @@ export default async function Home(props: {
   const searchParams = await props.searchParams;
   const initialQuery = searchParams.q || "";
 
-  const taskPlanner = new TaskPlanner(llama3point1Groq);
-  const taskPlan = await taskPlanner.planTask(initialQuery);
+  const taskPlanner = new TaskPlanner();
+  const taskPlan = taskPlanner.planTask(initialQuery);
 
   return (
     <div className="min-h-screen flex flex-col">

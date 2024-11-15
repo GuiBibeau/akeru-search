@@ -1,15 +1,13 @@
-import { llama3point1Groq } from "../chat-models/llama-3-point-1";
 import { ProcessedResult, processSearchResults } from "./processSearchResults";
 import { gpt3point5 } from "../chat-models/gpt-3.5";
 import { SearchTool } from "./SearchTool";
+import { llama3point2 } from "@/chat-models/llama-3-point-1";
 
 export class SummaryTool {
   private model;
   private searchTool: SearchTool;
 
-  constructor(
-    model: typeof llama3point1Groq | typeof gpt3point5 = llama3point1Groq
-  ) {
+  constructor(model: typeof llama3point2 | typeof gpt3point5 = llama3point2) {
     this.model = model;
     this.searchTool = new SearchTool("BraveSearch");
   }
@@ -31,15 +29,13 @@ export class SummaryTool {
     return [
       [
         "system",
-        "You are an expert at summarizing search results and providing informative answers. Respond with a comprehensive answer to the user's query, synthesizing information from multiple sources when applicable. Provide only plain text without any markdown, formatting, or mention of an assistant.",
+        "You are a search engine assistant that summarizes search results and provides informative answers. You will be given a user's query and a list of search results. Your task is to provide a comprehensive answer to the user's query, synthesizing information from multiple sources when applicable. Use only plain text without any markdown or formatting.",
       ],
       [
         "human",
-        `The user's query was: "${query}". Here are the search results: ${JSON.stringify(
+        `I am searching for "${query}". Here are the search results: ${JSON.stringify(
           resultsWithoutIconsAndThumbnails
-        )}. 
-
-Provide a comprehensive answer to the user's query, addressing the main points and synthesizing information from multiple sources when applicable. Use only plain text without any markdown or formatting.`,
+        )}.`,
       ],
     ];
   }

@@ -1,4 +1,4 @@
-import { llama3point1Groq } from "@/chat-models/llama-3-point-1";
+import { llama3point2 } from "@/chat-models/llama-3-point-1";
 import { z } from "zod";
 import { SearchArtifact } from "../app/types/reasoning";
 
@@ -38,7 +38,7 @@ export async function assessCryptoContent(
     .join("\n");
 
   try {
-    const response = await llama3point1Groq.invoke([
+    const response = await llama3point2.invoke([
       {
         role: "system",
         content: `You are an expert at identifying cryptocurrency and web3-related content and assessing its risk level. 

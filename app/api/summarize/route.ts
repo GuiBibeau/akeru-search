@@ -1,6 +1,6 @@
 import { SummaryTool } from "@/lib/SummaryTool";
 import { ProcessedResult } from "@/lib/processSearchResults";
-import { llama3point1Groq } from "@/chat-models/llama-3-point-1";
+import { llama3point2 } from "@/chat-models/llama-3-point-1";
 
 export async function POST(request: Request) {
   try {
@@ -17,7 +17,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const summaryTool = new SummaryTool(llama3point1Groq);
+    const summaryTool = new SummaryTool(llama3point2);
     const stream = summaryTool.summarizeWithResultsStreamed(query, sources);
 
     const encoder = new TextEncoder();
