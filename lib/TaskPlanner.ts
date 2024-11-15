@@ -1,7 +1,7 @@
 import { TaskPlan } from "../app/types";
 
 export class TaskPlanner {
-  planTask(query: string): TaskPlan {
+  searchPlan(query: string): TaskPlan {
     return {
       query,
       steps: [

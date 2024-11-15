@@ -9,7 +9,7 @@ export default async function Home(props: {
   const initialQuery = searchParams.q || "";
 
   const taskPlanner = new TaskPlanner();
-  const taskPlan = taskPlanner.planTask(initialQuery);
+  const taskPlan = taskPlanner.searchPlan(initialQuery);
 
   return (
     <div className="min-h-screen flex flex-col">
