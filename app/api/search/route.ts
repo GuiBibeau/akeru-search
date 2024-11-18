@@ -17,7 +17,7 @@ export async function POST(request: Request) {
       return Response.json({ error: "Query is required" }, { status: 400 });
     }
 
-    const searchTool = new SearchTool("BraveSearch");
+    const searchTool = new SearchTool();
     const searchResults = await searchTool.search(query);
 
     if (!searchResults) {

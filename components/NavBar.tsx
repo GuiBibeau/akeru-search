@@ -7,7 +7,7 @@ export function NavBar() {
       <nav className="sticky top-0 z-50 p-4">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <Link href="/" className="flex items-center space-x-2">
-            <span className="text-xl font-bold">Finder</span>
+            <span className="text-xl font-bold">Open Search</span>
           </Link>
           <div className="space-x-4">
             <a

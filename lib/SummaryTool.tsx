@@ -9,7 +9,7 @@ export class SummaryTool {
 
   constructor(model: typeof llama3point2 | typeof gpt3point5 = llama3point2) {
     this.model = model;
-    this.searchTool = new SearchTool("BraveSearch");
+    this.searchTool = new SearchTool();
   }
 
   private createPrompt(
@@ -29,12 +29,20 @@ export class SummaryTool {
     return [
       [
         "system",
-        "You are a search engine assistant that summarizes search results and provides informative answers. You will be given a user's query and a list of search results. Your task is to provide a comprehensive answer to the user's query, synthesizing information from multiple sources when applicable. Use only plain text without any markdown or formatting.",
+        `Use the folowing step-by-step instructions to respond to the user's inputs.
+        
+        step 1 - The user will provide you with a search query and a list of search results.
+        step 2 - Understand the user's query and the information they are looking for.
+        step 3 - Synthesize the information in 4 to 6 sentences from the search results to provide a comprehensive answer to the user's query.
+        step 4 - Use only plain text without any markdown or formatting, never mention the user.
+        `,
       ],
       [
         "human",
-        `I am searching for "${query}". Here are the search results: ${JSON.stringify(
-          resultsWithoutIconsAndThumbnails
+        `
+        query: ${query}
+        search results: ${JSON.stringify(
+          resultsWithoutIconsAndThumbnails.slice(0, 4)
         )}.`,
       ],
     ];

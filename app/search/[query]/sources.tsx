@@ -31,7 +31,7 @@ export function Sources({ sources }: SourcesProps) {
               rel="noopener noreferrer"
               className="no-underline"
             >
-              <CardContent className="p-4 h-full flex flex-col justify-between">
+              <CardContent className="p-4 h-full flex flex-col justify-between relative">
                 <div className="space-y-2">
                   <div className="flex items-start justify-between">
                     <h3 className="text-sm font-semibold text-primary line-clamp-1 flex-grow pr-2">
@@ -54,16 +54,16 @@ export function Sources({ sources }: SourcesProps) {
                   </p>
                 </div>
                 <div className="flex items-center justify-between mt-4 text-xs text-muted-foreground">
-                  <span className="truncate max-w-[calc(100%-4rem)]">
+                  <span className="truncate max-w-[calc(100%-6rem)]">
                     {result.source}
                   </span>
-                  <span>{result.date}</span>
+                  <span className="flex items-center gap-2">
+                    {result.date}
+                    <ExternalLinkIcon className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </span>
                 </div>
               </CardContent>
             </a>
-            <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-              <ExternalLinkIcon className="w-4 h-4 text-muted-foreground" />
-            </div>
           </Card>
         ))}
       </div>

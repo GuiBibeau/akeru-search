@@ -1,5 +1,4 @@
-import { NavBar } from "@/components/NavBar";
-import { SearchBar } from "./SearchBar";
+import { SearchBar } from "./search-bar";
 
 import { Metadata } from "next";
 
@@ -35,11 +34,8 @@ export const metadata: Metadata = {
 export default async function Home() {
   return (
     <div className="min-h-screen flex flex-col relative">
-      <div className="relative flex flex-col min-h-screen">
-        <NavBar />
-        <div className="flex-grow flex flex-col items-center justify-center p-4">
-          <SearchBar />
-        </div>
+      <div className="flex-grow flex flex-col items-center justify-center p-4">
+        <SearchBar />
       </div>
     </div>
   );

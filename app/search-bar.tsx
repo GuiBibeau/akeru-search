@@ -1,14 +1,15 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { track } from "@vercel/analytics/server";
-import { SearchForm } from "./SearchForm";
+import { SearchForm } from "./search-form";
+import { createParamFromString } from "@/lib/create-param-from-string";
 
 async function searchAction(formData: FormData) {
   "use server";
   const query = formData.get("query")?.toString();
   if (query?.trim()) {
     track("search", { query });
-    redirect(`/search?q=${encodeURIComponent(query)}`);
+    redirect(`/search/${createParamFromString(query)}`);
   }
 }
 
@@ -35,7 +36,7 @@ export function SearchBar() {
 function SearchPill({ emoji, query }: { emoji: string; query: string }) {
   return (
     <Link
-      href={`/search?q=${encodeURIComponent(query)}`}
+      href={`/prototype/${createParamFromString(query)}`}
       className="border hover:bg-gray-100 transition-all duration-300 ease-in-out px-4 py-2 rounded-lg text-sm inline-flex items-center"
     >
       {emoji} {query}

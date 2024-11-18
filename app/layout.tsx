@@ -3,6 +3,7 @@ import { Exo_2 } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
+import { NavBar } from "@/components/NavBar";
 
 const exo2 = Exo_2({
   subsets: ["latin"],
@@ -36,7 +37,10 @@ export default function RootLayout({
       <body
         className={`${exo2.variable} ${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-white text-black`}
       >
-        {children}
+        <div className="min-h-screen flex flex-col">
+          <NavBar />
+          {children}
+        </div>
         <Analytics />
       </body>
     </html>

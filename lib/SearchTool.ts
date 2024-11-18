@@ -7,11 +7,9 @@ interface BraveSearchResponse {
 }
 
 export class SearchTool {
-  name: string;
   private apiKey: string;
 
-  constructor(name: string) {
-    this.name = name;
+  constructor() {
     this.apiKey = process.env.BRAVE_API_KEY!;
   }
 
