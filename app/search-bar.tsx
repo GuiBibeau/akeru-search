@@ -36,7 +36,7 @@ export function SearchBar() {
 function SearchPill({ emoji, query }: { emoji: string; query: string }) {
   return (
     <Link
-      href={`/prototype/${createParamFromString(query)}`}
+      href={`/search/${createParamFromString(query)}`}
       className="border hover:bg-gray-100 transition-all duration-300 ease-in-out px-4 py-2 rounded-lg text-sm inline-flex items-center"
     >
       {emoji} {query}
