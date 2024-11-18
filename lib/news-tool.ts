@@ -46,8 +46,8 @@ export class NewsTool {
       const url = new URL("https://api.search.brave.com/res/v1/news/search");
       url.search = new URLSearchParams({
         q: query,
-        count: "20", // Default to 20 results
-        search_lang: "en", // Default to English
+        count: "5",
+        search_lang: "en",
         ...params,
       }).toString();
 
