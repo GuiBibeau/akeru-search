@@ -18,7 +18,7 @@ export default async function PrototypePage(props: {
   const searchPrompt = createStringFromParam(query!);
 
   const searchTool = new SearchTool();
-  const searchResults = await searchTool.search(searchPrompt!).then();
+  const searchResults = await searchTool.search(searchPrompt!);
   const processedResults = processSearchResults(searchResults!);
 
   return (
