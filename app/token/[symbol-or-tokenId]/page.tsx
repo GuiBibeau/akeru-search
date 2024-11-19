@@ -15,6 +15,8 @@ export async function generateStaticParams() {
   }));
 }
 
+export const revalidate = 600;
+
 export async function generateMetadata({
   params,
 }: {
