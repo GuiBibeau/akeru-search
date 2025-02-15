@@ -10,7 +10,6 @@ const CryptoAssessmentSchema = z.object({
   potentialRisks: z.array(z.string()),
 });
 
-// Remove the interface as we'll use Zod inference
 type CryptoAssessment = z.infer<typeof CryptoAssessmentSchema>;
 
 type ReasoningChainArtifact =
